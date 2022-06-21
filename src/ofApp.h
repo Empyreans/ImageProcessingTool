@@ -31,7 +31,7 @@ class ofApp : public ofBaseApp{
 		vector<ofPoint> points;
 		vector<ofPoint>  calculatePointDistribution(vector<float> points);
 		ofxDelaunay delaunay;
-		ofxDelaunay prepareDelaunayTriangulation(vector<ofPoint> points);
+		ofxDelaunay calculateDelaunayTriangulation(vector<ofPoint> points);
 
 		// GUI
 		void setupGui();

@@ -2,7 +2,6 @@
 #include "../BaseImage.h"
 
 vector<float> ofApp::calculateImgFilter() {
-    // TODO add more
 	return baseImage.getImgBrightness();
 }
 
@@ -20,7 +19,7 @@ vector<ofPoint> ofApp::calculatePointDistribution(vector<float> imgBrightness) {
 	return points;
 }
 
-ofxDelaunay ofApp::prepareDelaunayTriangulation(vector<ofPoint> points) {
+ofxDelaunay ofApp::calculateDelaunayTriangulation(vector<ofPoint> points) {
 	ofxDelaunay delaunay;
 	for (ofPoint p : points) {
 		delaunay.addPoint(p);
@@ -30,11 +29,14 @@ ofxDelaunay ofApp::prepareDelaunayTriangulation(vector<ofPoint> points) {
 }
 
 void ofApp::setup() {
-	baseImage = BaseImage("DSC_0658.jpg", 1200, 1200);
 	setupGui();
+	baseImage = BaseImage("DSC_0658.jpg", 1200, 1200);
 	imgFilter = calculateImgFilter();
+	// imgFilter = baseImage.calculateFilter(ImageFilter::BRIGHTNESS)
 	points = calculatePointDistribution(imgFilter);
-	delaunay = prepareDelaunayTriangulation(points);
+	// points = imgFilter.calculatePoints(PointDistribution::SPACER)
+	delaunay = calculateDelaunayTriangulation(points);
+	// delaunay = points.calculatePointConnection(PointConnection::DELAUNAY)
 }
 
 void ofApp::draw() {
@@ -55,18 +57,14 @@ void ofApp::draw() {
 			ofDrawEllipse(p, 5, 5);
 		}
 	}
-
 	gui.draw();
 }
 
-void ofApp::update() {
-
-}
+void ofApp::update() { }
 
 void ofApp::setupGui() {
-	// GUI
 	gui.setup();
-	// for setup functions
+
 	gui.add(gPower.setup("power", 5.0, 2.0, 24.0));
 	gPower.addListener(this, &ofApp::gPowerChanged);
 	gui.add(gSpacer.setup("spacer", 5, 5, 120));
@@ -77,7 +75,7 @@ void ofApp::setupGui() {
 	gPointDistributionMethod.addListener(this, &ofApp::gPointDistributionMethodChanged);
 	gui.add(gParticleCount.setup("particleCount", 100, 100, 10000));
 	gParticleCount.addListener(this, &ofApp::gParticleCountChanged);
-	// for draw function
+
 	gui.add(gDrawDelaunay.setup("drawDelaunay", true));
 	gui.add(gDrawImage.setup("drawImage", true));
 }
@@ -85,37 +83,44 @@ void ofApp::setupGui() {
 void ofApp::gPowerChanged(float& gPower)
 {
 	points = calculatePointDistribution(imgFilter);
-	delaunay = prepareDelaunayTriangulation(points);
+	delaunay = calculateDelaunayTriangulation(points);
 }
 
 void ofApp::gSpacerChanged(int& gSpacer)
 {
 	points = calculatePointDistribution(imgFilter);
-	delaunay = prepareDelaunayTriangulation(points);
+	delaunay = calculateDelaunayTriangulation(points);
 }
 
 void ofApp::gLightOrDarkChanged(bool& lightOrDark)
 {
 	imgFilter = calculateImgFilter();
 	points = calculatePointDistribution(imgFilter);
-	delaunay = prepareDelaunayTriangulation(points);
+	delaunay = calculateDelaunayTriangulation(points);
 }
 
 void ofApp::gPointDistributionMethodChanged(int& gPointDistributionMethod)
 {
 	points = calculatePointDistribution(imgFilter);
-	delaunay = prepareDelaunayTriangulation(points);
+	delaunay = calculateDelaunayTriangulation(points);
 }
 
 void ofApp::gParticleCountChanged(int& gParticleCount)
 {
 	points = calculatePointDistribution(imgFilter);
-	delaunay = prepareDelaunayTriangulation(points);
+	delaunay = calculateDelaunayTriangulation(points);
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
+	// add current points to previous points
+	if (key == 'a') {
+		//points.insert();
+	}
+	// add new layer 
+	else if (key == 's') {
 
+	}
 }
 
 //--------------------------------------------------------------

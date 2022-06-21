@@ -9,7 +9,6 @@ BaseImage::BaseImage(string _filepath, int _w, int _h) {
 	h = _h;
 	image.load(_filepath);
 	image.resize(w, h);
-	// rand = ofRandom(1.0);
 }
 
 void BaseImage::draw() {
@@ -34,18 +33,18 @@ vector<float> BaseImage::getImgBrightness() {
 	return brightnessVec;
 }
 
-bool BaseImage::checkFunc(vector<float>& imgVec, int x, int y) {
+bool BaseImage::checkFunc(vector<float>& imgFilter, int x, int y) {
 	int power = ((ofApp*)ofGetAppPtr())->gPower;
 	int p = x + y * w;
-	return ofRandom(1.0) < powf(imgVec[p], power);
+	return ofRandom(1.0) < powf(imgFilter[p], power);
 }
 
-vector<ofPoint> BaseImage::pdSpacer(vector<float>& imgVec) {
+vector<ofPoint> BaseImage::pdSpacer(vector<float>& imgFilter) {
 	vector<ofPoint> points;
 	int spacer = ((ofApp*)ofGetAppPtr())->gSpacer;
 	for (int y = 0; y < h; y += spacer) {
 		for (int x = 0; x < w; x += spacer) {
-			if (checkFunc(imgVec, x, y)) {
+			if (checkFunc(imgFilter, x, y)) {
 				points.push_back(ofPoint(x, y));
 			}
 		}
@@ -53,13 +52,13 @@ vector<ofPoint> BaseImage::pdSpacer(vector<float>& imgVec) {
 	return points;
 }
 
-vector<ofPoint> BaseImage::pdRandom(vector<float>& imgVec) {
+vector<ofPoint> BaseImage::pdRandom(vector<float>& imgFilter) {
 	vector<ofPoint> points;
 	int particleCount = ((ofApp*)ofGetAppPtr())->gParticleCount;
 	for (int i = 0; i < particleCount; i++) {
 		int x = (int)ofRandom(w);
 		int y = (int)ofRandom(h);
-		if (checkFunc(imgVec, x, y)) {
+		if (checkFunc(imgFilter, x, y)) {
 			points.push_back(ofPoint(x, y));
 		}
 	}
