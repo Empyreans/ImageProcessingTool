@@ -6,56 +6,50 @@ void ofApp::setup() {
 	 
 	baseImage = BaseImage("DSC_0658.jpg", 1200, 1200);
 
-	imageFilterSettings = ImageFilterSettings(gLightMode);
 	imageFilterType = ImageFilterType::Brightness;
-	imageFilterResult = ImageFilter::calculate(baseImage, imageFilterSettings, imageFilterType);
+	imageFilterResult = ImageFilter::calculate(baseImage, ImageFilterSettings(gLightMode), imageFilterType);
 
-	 pointDistributionSettings = PointDistributionSettings(gSpacer, gParticleCount, gPower);
-	 //pointDistributionType = PointDistributionType::Spacer;
-	 //pointDistributionResult = PointDistribution::calculate(imageFilterResult, pointDistributionSettings, pointDistributionType);
+	pointDistributionType = PointDistributionType::Spacer;
+	pointDistributionResult = PointDistribution::calculate(imageFilterResult, PointDistributionSettings(gSpacer, gParticleCount, gPower), pointDistributionType);
 
-	 //pointConnectionType = PointConnectionType::Delaunay;
-	 //pointConnectionSettings = PointConnectionSettings();
-	 //pointConnectionResult = PointConnection::calculate(pointDistributionResult, pointConnectionSettings, pointConnectionType);
-
+	pointConnectionType = PointConnectionType::Delaunay;
+	pointConnectionResult = PointConnection::calculate(pointDistributionResult, PointConnectionSettings(), pointConnectionType);
 }
 
 void ofApp::draw() {
-	baseImage.draw();
-
-	//if (gDrawImage) {
-	//	baseImage.draw();
-	//}
-	//else {
-	//	ofBackground(25, 25, 25);
-	//}
-	//if (gDrawDelaunay) {
-	//	pointConnectionResult.draw();
-	//}
-	//else {
-	//	pointDistributionResult.draw();
-	//}
-	//gui.draw();
+	if (gDrawImage) {
+		baseImage.draw();
+	}
+	else {
+		ofBackground(25, 25, 25);
+	}
+	if (gDrawDelaunay) {
+		pointConnectionResult.draw();
+	}
+	else {
+		pointDistributionResult.draw();
+	}
+	gui.draw();
 }
 
 void ofApp::update() { }
 
 void ofApp::setupGui() {
-	//gui.setup();
+	gui.setup();
 
-	//gui.add(gPower.setup("power", 5.0, 2.0, 24.0));
-	//gPower.addListener(this, &ofApp::gPowerChanged);
-	//gui.add(gSpacer.setup("spacer", 5, 5, 120));
-	//gSpacer.addListener(this, &ofApp::gSpacerChanged);
-	//gui.add(gLightOrDark.setup("lightOrDark", true));
-	//gLightOrDark.addListener(this, &ofApp::gLightOrDarkChanged);
-	//gui.add(gPointDistributionMethod.setup("pointDistributionMethod", 0, 0, 1));
-	//gPointDistributionMethod.addListener(this, &ofApp::gPointDistributionMethodChanged);
-	//gui.add(gParticleCount.setup("particleCount", 100, 100, 10000));
-	//gParticleCount.addListener(this, &ofApp::gParticleCountChanged);
+	gui.add(gPower.setup("power", 5.0, 2.0, 24.0));
+	gPower.addListener(this, &ofApp::gPowerChanged);
+	gui.add(gSpacer.setup("spacer", 5, 5, 120));
+	gSpacer.addListener(this, &ofApp::gSpacerChanged);
+	gui.add(gLightMode.setup("lightOrDark", true));
+	gLightMode.addListener(this, &ofApp::gLightModeChanged);
+	gui.add(gPointDistributionMethod.setup("pointDistributionMethod", 0, 0, 1));
+	gPointDistributionMethod.addListener(this, &ofApp::gPointDistributionMethodChanged);
+	gui.add(gParticleCount.setup("particleCount", 100, 100, 10000));
+	gParticleCount.addListener(this, &ofApp::gParticleCountChanged);
 
-	//gui.add(gDrawDelaunay.setup("drawDelaunay", true));
-	//gui.add(gDrawImage.setup("drawImage", true));
+	gui.add(gDrawDelaunay.setup("drawDelaunay", true));
+	gui.add(gDrawImage.setup("drawImage", true));
 }
 
 void ofApp::gPowerChanged(float& gPower)
@@ -92,14 +86,14 @@ void ofApp::gParticleCountChanged(int& gParticleCount)
 }
 
 void ofApp::calculateFromImageFilterOnward() {
-	//imageFilter = baseImage.constructFilter(imageFilterType);
-	//pointDistribution = imageFilter.constructPoints(pointDistributionType);
-	//pointConnection = pointDistribution.constructPointConnection(pointConnectionType);
+	imageFilterResult = ImageFilter::calculate(baseImage, ImageFilterSettings(gLightMode), imageFilterType);
+	pointDistributionResult = PointDistribution::calculate(imageFilterResult, PointDistributionSettings(gSpacer, gParticleCount, gPower), pointDistributionType);
+	pointConnectionResult = PointConnection::calculate(pointDistributionResult, PointConnectionSettings(), pointConnectionType);
 }
 
 void ofApp::calculateFromPointDistributionOnward() {
-	//pointDistribution = imageFilter.constructPoints(pointDistributionType);
-	//pointConnection = pointDistribution.constructPointConnection(pointConnectionType);
+	pointDistributionResult = PointDistribution::calculate(imageFilterResult, PointDistributionSettings(gSpacer, gParticleCount, gPower), pointDistributionType);
+	pointConnectionResult = PointConnection::calculate(pointDistributionResult, PointConnectionSettings(), pointConnectionType);
 }
 
 void ofApp::keyPressed(int key) {

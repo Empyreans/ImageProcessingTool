@@ -5,6 +5,7 @@ ImageFilterResult ImageFilter::calculate(const BaseImage& _baseImage, const Imag
 {
 	std::vector<float> _filterPixels;
 
+	// TODO, this is for performance, why I need this?
 	int h = _baseImage.h;
 	int w = _baseImage.w;
 	ofImage image = _baseImage.getImage();
@@ -22,7 +23,6 @@ ImageFilterResult ImageFilter::calculate(const BaseImage& _baseImage, const Imag
 					_filterPixels.push_back(1 - brightness);
 				}
 			}
-			ofLog(OF_LOG_NOTICE, ofToString(y));
 		}
 		break;
 	}

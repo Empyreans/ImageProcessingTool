@@ -28,15 +28,12 @@ class ofApp : public ofBaseApp{
 	    BaseImage baseImage;
 
 		ImageFilterType imageFilterType;
-		ImageFilterSettings imageFilterSettings;
 		ImageFilterResult imageFilterResult;
 
 		PointDistributionType pointDistributionType;
-		PointDistributionSettings pointDistributionSettings;
 		PointDistributionResult pointDistributionResult;
 
 		PointConnectionType pointConnectionType;
-		PointConnectionSettings pointConnectionSettings;
 		PointConnectionResult pointConnectionResult;
 
 		void calculateFromImageFilterOnward();

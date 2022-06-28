@@ -19,7 +19,7 @@ PointDistributionResult PointDistribution::calculate(const ImageFilterResult & _
 			}
 		}
 	}
-		break;
+	break;
 	case PointDistributionType::Random:
 		int particleCount = _pointDistributionSettings.particleCount;
 		for (int i = 0; i < particleCount; i++) {
