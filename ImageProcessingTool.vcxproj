@@ -124,6 +124,7 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -131,6 +132,7 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/VERBOSE %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent />
   </ItemDefinitionGroup>
@@ -181,6 +183,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BaseImage.cpp" />
+    <ClCompile Include="ImageFilter.cpp" />
+    <ClCompile Include="PointConnection.cpp" />
+    <ClCompile Include="PointDistribution.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
     <ClCompile Include="..\..\..\addons\ofxCsv\src\ofxCsv.cpp" />
@@ -200,6 +205,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseImage.h" />
+    <ClInclude Include="ImageFilter.h" />
+    <ClInclude Include="PointConnection.h" />
+    <ClInclude Include="PointDistribution.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="..\..\..\addons\ofxCsv\src\ofxCsv.h" />
     <ClInclude Include="..\..\..\addons\ofxCsv\src\ofxCsvRow.h" />

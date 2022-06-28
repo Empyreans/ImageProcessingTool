@@ -1,9 +1,10 @@
 #pragma once
-
 #include "ofMain.h"
 #include "ofxGui.h"
 #include "../BaseImage.h"
-#include "ofxDelaunay.h"
+#include "../ImageFilter.h"
+#include "../PointDistribution.h"
+#include "../PointConnection.h"
 
 class ofApp : public ofBaseApp{
 
@@ -14,7 +15,7 @@ class ofApp : public ofBaseApp{
 
 		void keyPressed(int key);
 		void keyReleased(int key);
-		void mouseMoved(int x, int y );
+		void mouseMoved(int x, int y);
 		void mouseDragged(int x, int y, int button);
 		void mousePressed(int x, int y, int button);
 		void mouseReleased(int x, int y, int button);
@@ -24,14 +25,22 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
-		BaseImage baseImage;
+	    BaseImage baseImage;
 
-		vector<float> imgFilter;
-		vector<float> calculateImgFilter();
-		vector<ofPoint> points;
-		vector<ofPoint>  calculatePointDistribution(vector<float> points);
-		ofxDelaunay delaunay;
-		ofxDelaunay calculateDelaunayTriangulation(vector<ofPoint> points);
+		ImageFilterType imageFilterType;
+		ImageFilterSettings imageFilterSettings;
+		ImageFilterResult imageFilterResult;
+
+		PointDistributionType pointDistributionType;
+		PointDistributionSettings pointDistributionSettings;
+		PointDistributionResult pointDistributionResult;
+
+		PointConnectionType pointConnectionType;
+		PointConnectionSettings pointConnectionSettings;
+		PointConnectionResult pointConnectionResult;
+
+		void calculateFromImageFilterOnward();
+		void calculateFromPointDistributionOnward();
 
 		// GUI
 		void setupGui();
@@ -40,8 +49,8 @@ class ofApp : public ofBaseApp{
 		void gPowerChanged(float& gPower);
 		ofxIntSlider gSpacer;
 		void gSpacerChanged(int& gSpacer);
-		ofxToggle gLightOrDark;
-		void gLightOrDarkChanged(bool& lightOrDark);
+		ofxToggle gLightMode;
+		void gLightModeChanged(bool& gLightMode);
 		ofxIntSlider gPointDistributionMethod;
 		void gPointDistributionMethodChanged(int& gPointDistributionMethod);
 		ofxIntSlider gParticleCount;

@@ -1,22 +1,29 @@
 #pragma once
-#pragma once
 
-#include "ofMain.h"
+#include <ofImage.h>
+#include <string>
 
 class BaseImage
 {
-public:
+private:
 	ofImage image;
+
+public:
 	int w, h;
+	std::string filePath;
 
+	BaseImage() = default;
+	BaseImage(std::string _filePath, int _w, int _h) : filePath(_filePath), w(_w), h(_h) {
+		image.load(filePath);
+		image.resize(w, h);
+	};
 
-	BaseImage();
-	BaseImage(string _filepath, int _w, int _h);
+	void draw() {
+		image.draw(0, 0);
+	};
 
-	void draw();
-	vector<float> getImgBrightness();
-	bool checkFunc(vector<float>& , int x, int y);
-	vector<ofPoint> pdSpacer(vector<float>& imgVec);
-	vector<ofPoint> pdRandom(vector<float>& imgVec);
+	ofImage getImage() const {
+		return image;
+	}
 };
 
