@@ -2,17 +2,12 @@
 
 void ofApp::setup() {
 	
+	setupInitCalcSettings();
 	setupGui();
 	 
 	baseImage = BaseImage("DSC_0658.jpg", 1200, 1200);
-
-	imageFilterType = ImageFilterType::Brightness;
 	imageFilterResult = ImageFilter::calculate(baseImage, ImageFilterSettings(gLightMode), imageFilterType);
-
-	pointDistributionType = PointDistributionType::Spacer;
 	pointDistributionResult = PointDistribution::calculate(imageFilterResult, PointDistributionSettings(gSpacer, gParticleCount, gPower), pointDistributionType);
-
-	pointConnectionType = PointConnectionType::Delaunay;
 	pointConnectionResult = PointConnection::calculate(pointDistributionResult, PointConnectionSettings(), pointConnectionType);
 }
 
@@ -33,6 +28,13 @@ void ofApp::draw() {
 }
 
 void ofApp::update() { }
+
+void ofApp::setupInitCalcSettings() {
+	imageFilterType = ImageFilterType::Brightness;
+	pointDistributionType = PointDistributionType::Spacer;
+	pointConnectionType = PointConnectionType::Delaunay;
+
+}
 
 void ofApp::setupGui() {
 	gui.setup();
@@ -105,53 +107,4 @@ void ofApp::keyPressed(int key) {
 	else if (key == 's') {
 
 	}
-}
-
-//--------------------------------------------------------------
-void ofApp::keyReleased(int key) {
-
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button) {
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button) {
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo) {
-
 }

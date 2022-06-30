@@ -13,33 +13,22 @@ class ofApp : public ofBaseApp{
 		void update();
 		void draw();
 
-		void keyPressed(int key);
-		void keyReleased(int key);
-		void mouseMoved(int x, int y);
-		void mouseDragged(int x, int y, int button);
-		void mousePressed(int x, int y, int button);
-		void mouseReleased(int x, int y, int button);
-		void mouseEntered(int x, int y);
-		void mouseExited(int x, int y);
-		void windowResized(int w, int h);
-		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
-
-	    BaseImage baseImage;
-
+		// initial values
+		void setupInitCalcSettings();
 		ImageFilterType imageFilterType;
-		ImageFilterResult imageFilterResult;
-
 		PointDistributionType pointDistributionType;
-		PointDistributionResult pointDistributionResult;
-
 		PointConnectionType pointConnectionType;
+
+		// calculation data
+	    BaseImage baseImage;
+		ImageFilterResult imageFilterResult;
+		PointDistributionResult pointDistributionResult;
 		PointConnectionResult pointConnectionResult;
 
 		void calculateFromImageFilterOnward();
 		void calculateFromPointDistributionOnward();
 
-		// GUI
+		// gui
 		void setupGui();
 		ofxPanel gui;
 		ofxFloatSlider gPower;
@@ -54,5 +43,8 @@ class ofApp : public ofBaseApp{
 		void gParticleCountChanged(int& gParticleCount);
 		ofxToggle gDrawDelaunay;
 		ofxToggle gDrawImage;
+
+		// input
+		void keyPressed(int key);
 
 };

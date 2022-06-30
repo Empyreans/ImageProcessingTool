@@ -41,5 +41,3 @@ void PointDistributionResult::draw() {
 		ofDrawEllipse(p, 5, 5);
 	}
 }
-
-
