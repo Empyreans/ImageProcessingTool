@@ -1,7 +1,7 @@
 #include "ImageFilter.h"
 #include "BaseImage.h"
 
-ImageFilterResult ImageFilter::calculate(const BaseImage& _baseImage, const ImageFilterSettings& _imageFilterSettings, const ImageFilterType& _imageFilterType)
+ImageFilterResult ImageFilter::calculate(const BaseImage& _baseImage, const ImageFilterSettings& _imageFilterSettings)
 {
 	std::vector<float> _filterPixels;
 
@@ -10,7 +10,7 @@ ImageFilterResult ImageFilter::calculate(const BaseImage& _baseImage, const Imag
 	int w = _baseImage.w;
 	ofImage image = _baseImage.getImage();
 
-	switch (_imageFilterType) {
+	switch (_imageFilterSettings.imageFilterType) {
 	case ImageFilterType::Brightness:
 		for (int y = 0; y < h; y++) {
 			for (int x = 0; x < w; x++) {

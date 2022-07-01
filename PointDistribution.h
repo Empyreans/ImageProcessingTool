@@ -15,12 +15,13 @@ struct PointDistributionResult {
 };
 
 struct PointDistributionSettings {
+	PointDistributionType pointDistributionType;
 	int spacer;
 	int particleCount;
 	float power;
 
 	PointDistributionSettings() = default;
-	PointDistributionSettings(int _spacer, int _particleCount, float _power) : spacer(_spacer), particleCount(_particleCount), power(_power) {};
+	PointDistributionSettings(PointDistributionType _pointDistributionType, int _spacer, int _particleCount, float _power) : pointDistributionType(_pointDistributionType), spacer(_spacer), particleCount(_particleCount), power(_power) {};
 };
 
 struct ImageFilterResult;
@@ -29,6 +30,6 @@ class PointDistribution
 public:
 	PointDistribution() = default;
 
-	static PointDistributionResult calculate(const ImageFilterResult & _filterImageResult, const PointDistributionSettings & _pointDistributionSettings, const PointDistributionType& _pointDistributionType);
+	static PointDistributionResult calculate(const ImageFilterResult & _filterImageResult, const PointDistributionSettings & _pointDistributionSettings);
 };
 

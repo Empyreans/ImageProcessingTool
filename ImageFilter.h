@@ -17,10 +17,11 @@ struct ImageFilterResult {
 };
 
 struct ImageFilterSettings {
+	ImageFilterType imageFilterType;
 	bool lightMode;
 
 	ImageFilterSettings() = default;
-	ImageFilterSettings(bool _lightMode) : lightMode(_lightMode) {};
+	ImageFilterSettings(ImageFilterType _imageFilterType, bool _lightMode) : lightMode(_lightMode), imageFilterType(_imageFilterType) {};
 };
 
 class BaseImage;
@@ -29,6 +30,6 @@ class ImageFilter
 public:
 	ImageFilter() = default;
 
-	static ImageFilterResult calculate(const BaseImage & _baseImage, const ImageFilterSettings & _imageFilterSettings, const ImageFilterType & _imageFilterType);
+	static ImageFilterResult calculate(const BaseImage & _baseImage, const ImageFilterSettings & _imageFilterSettings);
 };
 

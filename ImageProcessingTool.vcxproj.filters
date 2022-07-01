@@ -61,6 +61,7 @@
     <ClCompile Include="ImageFilter.cpp" />
     <ClCompile Include="PointDistribution.cpp" />
     <ClCompile Include="PointConnection.cpp" />
+    <ClCompile Include="GuiSettings.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -158,6 +159,7 @@
     <ClInclude Include="ImageFilter.h" />
     <ClInclude Include="PointDistribution.h" />
     <ClInclude Include="PointConnection.h" />
+    <ClInclude Include="GuiSettings.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

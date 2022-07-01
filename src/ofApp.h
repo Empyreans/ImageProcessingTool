@@ -5,6 +5,7 @@
 #include "../ImageFilter.h"
 #include "../PointDistribution.h"
 #include "../PointConnection.h"
+#include "../GuiSettings.h"
 
 class ofApp : public ofBaseApp{
 
@@ -13,36 +14,22 @@ class ofApp : public ofBaseApp{
 		void update();
 		void draw();
 
-		// initial values
-		void setupInitCalcSettings();
-		ImageFilterType imageFilterType;
-		PointDistributionType pointDistributionType;
-		PointConnectionType pointConnectionType;
+		// gui
+		GuiSettings gui;
+		ofxPanel guiPanel;
 
-		// calculation data
-	    BaseImage baseImage;
+		// base
+		BaseImage baseImage;
+
+		// calculation
+		void calculateAll();
+		void calculateDistribution();
+		void calculateConnection();
+
+		// calculation results
 		ImageFilterResult imageFilterResult;
 		PointDistributionResult pointDistributionResult;
 		PointConnectionResult pointConnectionResult;
-
-		void calculateFromImageFilterOnward();
-		void calculateFromPointDistributionOnward();
-
-		// gui
-		void setupGui();
-		ofxPanel gui;
-		ofxFloatSlider gPower;
-		void gPowerChanged(float& gPower);
-		ofxIntSlider gSpacer;
-		void gSpacerChanged(int& gSpacer);
-		ofxToggle gLightMode;
-		void gLightModeChanged(bool& gLightMode);
-		ofxIntSlider gPointDistributionMethod;
-		void gPointDistributionMethodChanged(int& gPointDistributionMethod);
-		ofxIntSlider gParticleCount;
-		void gParticleCountChanged(int& gParticleCount);
-		ofxToggle gDrawDelaunay;
-		ofxToggle gDrawImage;
 
 		// input
 		void keyPressed(int key);

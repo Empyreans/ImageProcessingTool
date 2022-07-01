@@ -15,7 +15,9 @@ struct PointConnectionResult {
 };
 
 struct PointConnectionSettings {
-	PointConnectionSettings() = default;
+	PointConnectionType pointConnectionType;
+
+	PointConnectionSettings(PointConnectionType _pointConnectionType) : pointConnectionType(_pointConnectionType) {};
 };
 
 struct PointDistributionResult;
@@ -23,5 +25,5 @@ class PointConnection
 {
 public:
 	PointConnection() = default;
-	static PointConnectionResult calculate(const PointDistributionResult & pointDistributionResult, const PointConnectionSettings & _pointConnectionSettings, const PointConnectionType & _pointConnectionType);
+	static PointConnectionResult calculate(const PointDistributionResult & pointDistributionResult, const PointConnectionSettings & _pointConnectionSettings);
 };

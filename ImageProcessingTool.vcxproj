@@ -183,6 +183,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BaseImage.cpp" />
+    <ClCompile Include="GuiSettings.cpp" />
     <ClCompile Include="ImageFilter.cpp" />
     <ClCompile Include="PointConnection.cpp" />
     <ClCompile Include="PointDistribution.cpp" />
@@ -205,6 +206,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseImage.h" />
+    <ClInclude Include="GuiSettings.h" />
     <ClInclude Include="ImageFilter.h" />
     <ClInclude Include="PointConnection.h" />
     <ClInclude Include="PointDistribution.h" />

@@ -2,12 +2,13 @@
 #include "ImageFilter.h"
 #include "ofMain.h"
 
-PointDistributionResult PointDistribution::calculate(const ImageFilterResult & _filterImageResult, const PointDistributionSettings & _pointDistributionSettings, const PointDistributionType& _pointDistributionType)
+PointDistributionResult PointDistribution::calculate(const ImageFilterResult & _filterImageResult, const PointDistributionSettings & _pointDistributionSettings)
 {
 	std::vector<ofPoint> _points;
+
 	float power = _pointDistributionSettings.power;
 
-	switch (_pointDistributionType) {
+	switch (_pointDistributionSettings.pointDistributionType) {
 	case PointDistributionType::Spacer:
 	{
 		int spacer = _pointDistributionSettings.spacer;

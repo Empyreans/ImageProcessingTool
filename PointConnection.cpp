@@ -1,11 +1,11 @@
 #include "PointConnection.h"
 #include "PointDistribution.h"
 
-PointConnectionResult PointConnection::calculate(const PointDistributionResult & pointDistributionResult, const PointConnectionSettings & _pointConnectionSettings, const PointConnectionType & _pointConnectionType)
+PointConnectionResult PointConnection::calculate(const PointDistributionResult & pointDistributionResult, const PointConnectionSettings & _pointConnectionSettings)
 {
 	ofxDelaunay delaunay;
 
-	switch (_pointConnectionType) {
+	switch (_pointConnectionSettings.pointConnectionType) {
 	case PointConnectionType::Delaunay:
 		for (ofPoint p : pointDistributionResult.points) {
 			delaunay.addPoint(p);
