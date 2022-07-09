@@ -7,7 +7,7 @@
 #include "../PointConnection.h"
 #include "../GuiSettings.h"
 
-class ofApp : public ofBaseApp{
+class ofApp : public ofBaseApp {
 
 	public:
 		void setup();
@@ -21,7 +21,8 @@ class ofApp : public ofBaseApp{
 		// base
 		BaseImage baseImage;
 
-		// calculation
+		// calculation methods
+		void calculateTest(float & b);
 		void calculateAll();
 		void calculateDistribution();
 		void calculateConnection();

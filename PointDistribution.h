@@ -20,6 +20,7 @@ struct PointDistributionSettings {
 	int particleCount;
 	float power;
 
+	// TODO remove all default
 	PointDistributionSettings() = default;
 	PointDistributionSettings(PointDistributionType _pointDistributionType, int _spacer, int _particleCount, float _power) : pointDistributionType(_pointDistributionType), spacer(_spacer), particleCount(_particleCount), power(_power) {};
 };

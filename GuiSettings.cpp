@@ -4,9 +4,11 @@
 //#include "ImageFilter.h"
 #include "ofApp.h"
 
-GuiSettings::GuiSettings(ofApp * _app) {
-
-	app = _app;
+GuiSettings::GuiSettings() {
+	// initialize default values
+	imageFilterType = ImageFilterType::Brightness;
+	pointDistributionType = PointDistributionType::Spacer;
+	pointConnectionType = PointConnectionType::Delaunay;
 
 	// --- Main Settings ---
 	mainSettingsGroup.setName("main settings");
@@ -43,7 +45,7 @@ GuiSettings::GuiSettings(ofApp * _app) {
 
 	pointConnectionSettingsGroup.add(drawConnection.set("draw connection", true));
 
-	// --- All Settings Collection ---
+	// collect all parameter groups to make them available in one group
 	allParameters.setName("settings");
 	allParameters.add(mainSettingsGroup);
 	allParameters.add(imageFilterSettingsGroup);
@@ -58,17 +60,18 @@ void GuiSettings::imageFilterTypeChanged(int& imageFilterMethod)
 		imageFilterType = ImageFilterType::Brightness;
 		break;
 	}
-	app->calculateAll();
+	//app->calculateAll();
 }
 
 void GuiSettings::powerChanged(float& power)
 {
-	app->calculateDistribution();
+	//app->calculateDistribution();
+	ofNotifyEvent(changedAll, power, this);
 }
 
 void GuiSettings::lightModeChanged(bool& lightMode)
 {
-	app->calculateAll();
+	//app->calculateAll();
 }
 
 // TODO ofParameter<PointDistributionType> ?
@@ -82,17 +85,17 @@ void GuiSettings::pointDistributionTypeChanged(int& pointDistributionMethod)
 		pointDistributionType = PointDistributionType::Random;
 		break;
 	}
-	app->calculateDistribution();
+	//app->calculateDistribution();
 }
 
 void GuiSettings::particleCountChanged(int& particleCount)
 {
-	app->calculateDistribution();
+	//app->calculateDistribution();
 }
 
 void GuiSettings::spacerChanged(int& spacer)
 {
-	app->calculateDistribution();
+	//app->calculateDistribution();
 }
 
 void GuiSettings::pointConnectionTypeChanged(int& pointConnectionMethod)
@@ -102,5 +105,5 @@ void GuiSettings::pointConnectionTypeChanged(int& pointConnectionMethod)
 		pointConnectionType = PointConnectionType::Delaunay;
 		break;
 	}
-	app->calculateConnection();
+	//app->calculateConnection();
 }

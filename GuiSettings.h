@@ -1,6 +1,7 @@
 #include <ofParameter.h>
 
 #pragma once
+class ofApp;
 class GuiSettings
 {
 public:
@@ -50,8 +51,7 @@ public:
 
 	// -------------------------------
 
-	// main callback
-	ofApp * app;
+	ofEvent<float> changedAll;
 
-	GuiSettings(ofApp * _app);
+	GuiSettings();
 };

@@ -1,10 +1,12 @@
 #include "ofApp.h"
 
 void ofApp::setup() {
-	gui = GuiSettings(this);
+	gui = GuiSettings();
 	guiPanel.setup(gui.allParameters);
 	 
 	baseImage = BaseImage("DSC_0658.jpg", 1200, 1200);
+
+	ofAddListener(gui.changedAll, this, &ofApp::calculateTest);
 
 	calculateAll();
 }
@@ -27,6 +29,12 @@ void ofApp::draw() {
 }
 
 void ofApp::update() { }
+
+void ofApp::calculateTest(float & b) {
+	imageFilterResult = ImageFilter::calculate(baseImage, ImageFilterSettings(gui.imageFilterType, gui.lightMode));
+	pointDistributionResult = PointDistribution::calculate(imageFilterResult, PointDistributionSettings(gui.pointDistributionType, gui.spacer, gui.particleCount, gui.power));
+	pointConnectionResult = PointConnection::calculate(pointDistributionResult, PointConnectionSettings(gui.pointConnectionType));
+}
 
 void ofApp::calculateAll() {
 	imageFilterResult = ImageFilter::calculate(baseImage, ImageFilterSettings(gui.imageFilterType, gui.lightMode));
