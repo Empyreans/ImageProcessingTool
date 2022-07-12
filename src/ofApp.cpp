@@ -1,5 +1,6 @@
 #include "ofApp.h"
 
+// TODO vielleicht calculate Methods nicht statisch
 void ofApp::setup() {
 	prepareGui(); 
 	baseImage = BaseImage("DSC_0658.jpg", 1200, 1200);
@@ -55,12 +56,16 @@ void ofApp::prepareGui() {
 		});
 }
 
+// addLayer
+// addPoints
 void ofApp::keyPressed(int key) {
 	// add current points to previous points
 	if (key == 'a') {
-		//points.insert();
+		PointDistributionResult res = PointDistribution::calculate(imageFilterResult, PointDistributionSettings(gui.pointDistributionType, gui.spacer, gui.particleCount, gui.power));
+		pointDistributionResult.addPoints(res);
+		pointConnectionResult = PointConnection::calculate(pointDistributionResult, PointConnectionSettings(gui.pointConnectionType));
 	}
-	// add new layer 
+	// add new layer
 	else if (key == 's') {
 
 	}

@@ -2,6 +2,7 @@
 
 #include <ofPoint.h>
 #include <vector>
+#include "CDT/CDT.h"
 
 enum class PointDistributionType { Spacer, Random };
 
@@ -12,6 +13,8 @@ struct PointDistributionResult {
 	PointDistributionResult(std::vector<ofPoint> _points) : points(_points) {}
 
 	void draw();
+	std::vector<CDT::V2d<float>> getCdtPoints() const;
+	void addPoints(const PointDistributionResult& result);
 };
 
 struct PointDistributionSettings {

@@ -1,15 +1,16 @@
 #pragma once
 
 #include "ofxDelaunay.h"
+#include "CDT/CDT.h"
 
 enum class PointConnectionType { Delaunay };
 
 class ofxDelaunay;
 struct PointConnectionResult {
-	ofxDelaunay delaunay;
+	ofMesh triangleMesh;
 
 	PointConnectionResult() = default;
-	PointConnectionResult(ofxDelaunay _delaunay) : delaunay(_delaunay) {}
+	PointConnectionResult(ofMesh _delaunay) : triangleMesh(_delaunay) {}
 
 	void draw();
 };

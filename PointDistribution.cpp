@@ -2,6 +2,7 @@
 #include "ImageFilter.h"
 #include "ofMain.h"
 
+// TODO power -> imagefiltersettings?
 PointDistributionResult PointDistribution::calculate(const ImageFilterResult & _filterImageResult, const PointDistributionSettings & _pointDistributionSettings)
 {
 	std::vector<ofPoint> _points;
@@ -39,4 +40,19 @@ void PointDistributionResult::draw() {
 	for (ofPoint p : points) {
 		ofDrawEllipse(p, 5, 5);
 	}
+}
+
+// needed for cdt delaunay algorithm
+std::vector<CDT::V2d<float>> PointDistributionResult::getCdtPoints() const {
+	std::vector<CDT::V2d<float>> cdtPoints;
+	for (ofPoint p : points) {
+		CDT::V2d<float> f;
+		cdtPoints.push_back(f.make(p.x, p.y));
+	}
+	return cdtPoints;
+}
+
+// add points to existing result set
+void PointDistributionResult::addPoints(const PointDistributionResult & result) {
+	points.insert(points.end(), result.points.begin(), result.points.end());
 }
