@@ -1,13 +1,8 @@
 #include "ofApp.h"
 
 void ofApp::setup() {
-	gui = GuiSettings();
-	guiPanel.setup(gui.allParameters);
-	 
+	prepareGui(); 
 	baseImage = BaseImage("DSC_0658.jpg", 1200, 1200);
-
-	ofAddListener(gui.changedAll, this, &ofApp::calculateTest);
-
 	calculateAll();
 }
 
@@ -30,12 +25,6 @@ void ofApp::draw() {
 
 void ofApp::update() { }
 
-void ofApp::calculateTest(float & b) {
-	imageFilterResult = ImageFilter::calculate(baseImage, ImageFilterSettings(gui.imageFilterType, gui.lightMode));
-	pointDistributionResult = PointDistribution::calculate(imageFilterResult, PointDistributionSettings(gui.pointDistributionType, gui.spacer, gui.particleCount, gui.power));
-	pointConnectionResult = PointConnection::calculate(pointDistributionResult, PointConnectionSettings(gui.pointConnectionType));
-}
-
 void ofApp::calculateAll() {
 	imageFilterResult = ImageFilter::calculate(baseImage, ImageFilterSettings(gui.imageFilterType, gui.lightMode));
 	pointDistributionResult = PointDistribution::calculate(imageFilterResult, PointDistributionSettings(gui.pointDistributionType, gui.spacer, gui.particleCount, gui.power));
@@ -50,6 +39,20 @@ void ofApp::calculateDistribution() {
 void ofApp::calculateConnection() {
 	pointConnectionResult = PointConnection::calculate(pointDistributionResult, PointConnectionSettings(gui.pointConnectionType));
 
+}
+
+void ofApp::prepareGui() {
+	guiPanel.setup(gui.allParameters);
+
+	imageFilterListener = gui.imageFilterSettingsGroup.parameterChangedE().newListener([&](ofAbstractParameter& p) {
+		calculateAll();
+		});
+	pointDistributionListener = gui.pointDistributionSettingsGroup.parameterChangedE().newListener([&](ofAbstractParameter& p) {
+		calculateDistribution();
+		});
+	pointConnectionListener = gui.pointConnectionSettingsGroup.parameterChangedE().newListener([&](ofAbstractParameter& p) {
+		calculateConnection();
+		});
 }
 
 void ofApp::keyPressed(int key) {

@@ -11,47 +11,30 @@ public:
 
 	// --- Image Filter Settings ---
 	ofParameterGroup imageFilterSettingsGroup;
-
 	ofParameter<int> imageFilterTypeSelection;
+	ofParameter<float> power;
+	ofParameter<bool> lightMode;
 	ImageFilterType imageFilterType;
 	void imageFilterTypeChanged(int& imageFilterMethod);
 
-	ofParameter<float> power;
-	void powerChanged(float& power);
-
-	ofParameter<bool> lightMode;
-	void lightModeChanged(bool& lightMode);
-
 	// --- Point Distribution Settings ---
 	ofParameterGroup pointDistributionSettingsGroup;
-
 	ofParameter<int> pointDistributionTypeSelection;
+	ofParameter<int> particleCount;
+	ofParameter<int> spacer;
+	ofParameter<bool> drawDistribution;
 	PointDistributionType pointDistributionType;
 	void pointDistributionTypeChanged(int& pointDistributionMethod);
 
-	ofParameter<int> particleCount;
-	void particleCountChanged(int& particleCount);
-
-	ofParameter<int> spacer;
-	void spacerChanged(int& spacer);
-
-	ofParameter<bool> drawDistribution;
-
 	// --- Point Connection Settings ---
 	ofParameterGroup pointConnectionSettingsGroup;
-
 	ofParameter<int> pointConnectionTypeSelection;
+	ofParameter<bool> drawConnection;
 	PointConnectionType pointConnectionType;
 	void pointConnectionTypeChanged(int& pointConnectionMethod);
 
-	ofParameter<bool> drawConnection;
-
 	// --- All Settings Collection ---
 	ofParameterGroup allParameters;
-
-	// -------------------------------
-
-	ofEvent<float> changedAll;
 
 	GuiSettings();
 };

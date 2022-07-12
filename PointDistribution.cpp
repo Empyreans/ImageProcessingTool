@@ -32,9 +32,7 @@ PointDistributionResult PointDistribution::calculate(const ImageFilterResult & _
 		}
 		break;
 	}
-
 	return PointDistributionResult(_points);
-	
 }
 
 void PointDistributionResult::draw() {

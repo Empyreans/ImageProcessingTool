@@ -55,13 +55,11 @@
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp">
       <Filter>addons\ofxGui\src</Filter>
     </ClCompile>
-    <ClCompile Include="BaseImage.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageFilter.cpp" />
-    <ClCompile Include="PointDistribution.cpp" />
-    <ClCompile Include="PointConnection.cpp" />
+    <ClCompile Include="BaseImage.cpp" />
     <ClCompile Include="GuiSettings.cpp" />
+    <ClCompile Include="ImageFilter.cpp" />
+    <ClCompile Include="PointConnection.cpp" />
+    <ClCompile Include="PointDistribution.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -153,13 +151,11 @@
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h">
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
-    <ClInclude Include="BaseImage.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="ImageFilter.h" />
-    <ClInclude Include="PointDistribution.h" />
-    <ClInclude Include="PointConnection.h" />
+    <ClInclude Include="BaseImage.h" />
     <ClInclude Include="GuiSettings.h" />
+    <ClInclude Include="ImageFilter.h" />
+    <ClInclude Include="PointConnection.h" />
+    <ClInclude Include="PointDistribution.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

@@ -17,12 +17,15 @@ class ofApp : public ofBaseApp {
 		// gui
 		GuiSettings gui;
 		ofxPanel guiPanel;
+		ofEventListener imageFilterListener;
+		ofEventListener pointDistributionListener;
+		ofEventListener pointConnectionListener;
+		void prepareGui();
 
 		// base
 		BaseImage baseImage;
 
 		// calculation methods
-		void calculateTest(float & b);
 		void calculateAll();
 		void calculateDistribution();
 		void calculateConnection();
