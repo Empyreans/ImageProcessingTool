@@ -30,6 +30,7 @@ GuiSettings::GuiSettings() {
 
 	// --- Point Connection Settings ---
 	pointConnectionSettingsGroup.setName("point connection settings");
+	pointConnectionSettingsGroup.add(colorMode.set("color mode", true));
 	pointConnectionSettingsGroup.add(drawConnection.set("draw connection", true));
 
 	// collect all parameters into one gorup

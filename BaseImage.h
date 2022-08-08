@@ -31,5 +31,10 @@ public:
 	ofImage getImage() const {
 		return image;
 	}
+
+	ofColor getColorAt(int _x, int _y) const {
+		//int p = _x + _y * w; // Funky Color Mode
+		return image.getColor(_x, _y);
+	}
 };
 

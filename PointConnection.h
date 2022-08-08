@@ -2,6 +2,7 @@
 
 #include "ofxDelaunay.h"
 #include "CDT/CDT.h"
+#include "BaseImage.h"
 
 enum class PointConnectionType { Delaunay };
 
@@ -17,8 +18,9 @@ struct PointConnectionResult {
 
 struct PointConnectionSettings {
 	PointConnectionType pointConnectionType;
+	bool colorMode;
 
-	PointConnectionSettings(PointConnectionType _pointConnectionType) : pointConnectionType(_pointConnectionType) {};
+	PointConnectionSettings(PointConnectionType _pointConnectionType, bool _colorMode) : pointConnectionType(_pointConnectionType), colorMode(_colorMode) {};
 };
 
 struct PointDistributionResult;
@@ -26,5 +28,5 @@ class PointConnection
 {
 public:
 	PointConnection() = default;
-	static PointConnectionResult calculate(const PointDistributionResult & pointDistributionResult, const PointConnectionSettings & _pointConnectionSettings);
+	static PointConnectionResult calculate(const PointDistributionResult& pointDistributionResult, const BaseImage& _baseImage, const PointConnectionSettings& _pointConnectionSettings);
 };

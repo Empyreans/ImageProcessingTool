@@ -15,9 +15,11 @@ class ofApp : public ofBaseApp {
 		void update();
 		void draw();
 
-		void drawToFbo();
+		// receive texture via spout
+		ofxSpout::Receiver receiver;
+		ofTexture spoutTextureIn;
 
-		// gui
+		// control: gui / run time settings
 		GuiSettings gui;
 		ofxPanel guiPanel;
 		ofEventListener imageFilterListener;
@@ -25,32 +27,36 @@ class ofApp : public ofBaseApp {
 		ofEventListener pointConnectionListener;
 		void prepareGui();
 
-		// base
+		// control: key input
+		void keyPressed(int key);
+
+		// control: compile time settings
+		boolean manualMode;
+
+		// base container for incoming image
 		BaseImage baseImage;
 
-		// calculation methods
-		void calculateAll();
-		void calculateDistribution();
-		void calculateConnection();
+		// calculation calls with current gui settings
+		ImageFilterResult calculateImageFilterResult();
+		PointDistributionResult calculatePointDistributionResult();
+		PointConnectionResult calculatePointConnectionResult();
+
+		// callbacks for gui settings change
+		void recalculateAll();
+		void recalculateDistribution();
+		void recalculateConnection();
 
 		// calculation results
 		ImageFilterResult imageFilterResult;
 		PointDistributionResult pointDistributionResult;
 		PointConnectionResult pointConnectionResult;
 
+		// resulting image
 		ofFbo fbo;
-
-		ofxSpout::Receiver receiver;
-		bool isSpoutReceived = false;
-		ofTexture spoutTexture;
-
-		ofxSpout::Sender sender;
-
-		boolean manualMode;
-
+		void drawToFbo();
+		// rescaled dimensions to fit window size for display
 		ofRectangle imageSize;
 
-		// input
-		void keyPressed(int key);
+		ofxSpout::Sender sender;
 
 };

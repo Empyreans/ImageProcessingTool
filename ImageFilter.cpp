@@ -3,15 +3,15 @@
 
 ImageFilterResult ImageFilter::calculate(const BaseImage& _baseImage, const ImageFilterSettings& _imageFilterSettings)
 {
-	// TODO not optimal representation
 	std::vector<float> _filterPixels;
 
-	// TODO this is for performance, why I need this?
-	int h = _baseImage.h;
+	ImageFilterType imageFilterSettings = _imageFilterSettings.imageFilterType;
+	bool lightMode = _imageFilterSettings.lightMode;
 	int w = _baseImage.w;
+	int h = _baseImage.h;
 	ofImage image = _baseImage.getImage();
 
-	switch (_imageFilterSettings.imageFilterType) {
+	switch (imageFilterSettings) {
 	case ImageFilterType::Brightness:
 		for (int y = 0; y < h; y++) {
 			for (int x = 0; x < w; x++) {
@@ -28,7 +28,7 @@ ImageFilterResult ImageFilter::calculate(const BaseImage& _baseImage, const Imag
 		break;
 	}
 
-	return ImageFilterResult(_filterPixels, _baseImage.w, _baseImage.h);
+	return ImageFilterResult(_filterPixels, w, h);
 }
 
 // Mhhh...
@@ -36,10 +36,6 @@ bool ImageFilterResult::checkPointOnThreshold(int _x, int _y, float _power) cons
 	int p = _x + _y * w;
 	return ofRandom(1.0) < powf(filterPixels[p], _power);
 }
-
-//ofColor ImageFilterResult::getColorAt(int _x, int _y) const {
-//	int p = _x + _y * w;
-//}
 
 void ImageFilterResult::draw() {
 }

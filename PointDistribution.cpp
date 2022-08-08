@@ -6,16 +6,19 @@
 PointDistributionResult PointDistribution::calculate(const ImageFilterResult & _filterImageResult, const PointDistributionSettings & _pointDistributionSettings)
 {
 	std::vector<ofPoint> _points;
-	// std::vector<ofColor> _colors;
 
 	float power = _pointDistributionSettings.power;
+	int spacer = _pointDistributionSettings.spacer;
+	int particleCount = _pointDistributionSettings.particleCount;
+	PointDistributionType pointDistributionType = _pointDistributionSettings.pointDistributionType;
+	int h = _filterImageResult.h;
+	int w = _filterImageResult.w;
 
-	switch (_pointDistributionSettings.pointDistributionType) {
+	switch (pointDistributionType) {
 	case PointDistributionType::Spacer:
 	{
-		int spacer = _pointDistributionSettings.spacer;
-		for (int y = 0; y < _filterImageResult.h; y += spacer) {
-			for (int x = 0; x < _filterImageResult.w; x += spacer) {
+		for (int y = 0; y < h; y += spacer) {
+			for (int x = 0; x < w; x += spacer) {
 				if (_filterImageResult.checkPointOnThreshold(x, y, power)) {
 					_points.push_back(ofPoint(x, y));
 				}
@@ -24,13 +27,11 @@ PointDistributionResult PointDistribution::calculate(const ImageFilterResult & _
 	}
 	break;
 	case PointDistributionType::Random:
-		int particleCount = _pointDistributionSettings.particleCount;
 		for (int i = 0; i < particleCount; i++) {
-			int x = (int)ofRandom(_filterImageResult.w);
-			int y = (int)ofRandom(_filterImageResult.h);
+			int x = (int)ofRandom(w);
+			int y = (int)ofRandom(h);
 			if (_filterImageResult.checkPointOnThreshold(x, y, power)) {
 				_points.push_back(ofPoint(x, y));
-				//_colors.push_back(_filterImageResult.getColorAt(x, y));
 			}
 		}
 		break;
@@ -53,6 +54,6 @@ std::vector<CDT::V2d<float>> PointDistributionResult::getCdtPoints() const {
 	return cdtPoints;
 }
 
-void PointDistributionResult::addPoints(const PointDistributionResult & result) {
+void PointDistributionResult::addPoints(const PointDistributionResult & result) { // nicht den ganzen PointDistributionResult reingeben, sondern nur die relevanten Punkte
 	points.insert(points.end(), result.points.begin(), result.points.end());
 }

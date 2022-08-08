@@ -29,6 +29,7 @@ public:
 	// --- Point Connection Settings ---
 	ofParameterGroup pointConnectionSettingsGroup;
 	ofParameter<bool> drawConnection;
+	ofParameter<bool> colorMode;
 	ofParameter<int> pointConnectionTypeSelection;
 	PointConnectionType pointConnectionType;
 	void pointConnectionTypeChanged(int& pointConnectionMethod);

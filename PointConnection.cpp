@@ -1,26 +1,34 @@
 #include "PointConnection.h"
 #include "PointDistribution.h"
 
-PointConnectionResult PointConnection::calculate(const PointDistributionResult & pointDistributionResult, const PointConnectionSettings & _pointConnectionSettings)
+PointConnectionResult PointConnection::calculate(const PointDistributionResult & pointDistributionResult, const BaseImage & _baseImage, const PointConnectionSettings & _pointConnectionSettings)
 {
 	ofMesh triangleMesh;
 
+	PointConnectionType pointConnectionType = _pointConnectionSettings.pointConnectionType;
+	bool colorMode = _pointConnectionSettings.colorMode;
+
 	switch (_pointConnectionSettings.pointConnectionType) {
 	case PointConnectionType::Delaunay:
-		// calculate cdt 
-		CDT::Triangulation<float> cdt;
+		BaseImage baseImage = _baseImage;
 		std::vector<CDT::V2d<float>> verts = pointDistributionResult.getCdtPoints();
+
+		CDT::Triangulation<float> cdt;
+
 		CDT::RemoveDuplicates(verts);
 		cdt.insertVertices(verts);
 		cdt.eraseSuperTriangle();
 
-		// cdt to ofMesh conversion
 		triangleMesh.clear();
 		triangleMesh.setMode(OF_PRIMITIVE_TRIANGLES);
 
 		for (int i = 0; i < cdt.vertices.size(); i++) {
-			triangleMesh.addVertex(ofVec3f(cdt.vertices[i].x, cdt.vertices[i].y, 0.0));
-			// triangleMesh.addColor
+			float x = cdt.vertices[i].x;
+			float y = cdt.vertices[i].y;
+			triangleMesh.addVertex(ofVec3f(x, y, 0.0));
+			if (colorMode) {
+				triangleMesh.addColor(baseImage.getColorAt(x, y));
+			}
 		}
 
 		for (int i = 0; i < cdt.triangles.size(); i++) {

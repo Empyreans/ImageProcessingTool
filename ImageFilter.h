@@ -13,7 +13,6 @@ struct ImageFilterResult {
 	ImageFilterResult(std::vector<float> _filterPixels, int _w, int _h) : filterPixels(_filterPixels), w(_w), h(_h) {};
 
 	bool checkPointOnThreshold(int _x, int _y, float _power) const;
-	//ofColor getColorAt(int _x, int _y) const;
 	void draw();
 };
 

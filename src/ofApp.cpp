@@ -12,13 +12,13 @@ void ofApp::setup() {
 	receiver.init("ImageProcessingTool");
 
 	ofLog() << "waiting for spout texture ...";
-	while (!spoutTexture.isAllocated()) {
-		receiver.receive(spoutTexture);
+	while (!spoutTextureIn.isAllocated()) {
+		receiver.receive(spoutTextureIn);
 	}
 	ofLog() << "spout texture received.";
 
-	baseImage = BaseImage(spoutTexture);
-	calculateAll();
+	baseImage = BaseImage(spoutTextureIn);
+	recalculateAll();
 	fbo.allocate(baseImage.w, baseImage.h, GL_RGBA, 32);
 	fbo.begin();
 	ofClear(0, 0, 0, 0);
@@ -61,11 +61,11 @@ void ofApp::drawToFbo() {
 			float alpha = ofxeasing::map(i, end, start, 25, 255, exp::easeOut);
 			ofSetColor(255, 255, 255, 255-alpha);
 			gui.spacer.set(i);
-			calculateDistribution();
+			recalculateDistribution();
 			pointConnectionResult.draw();
 		}
 		gui.spacer.set(3);
-		calculateDistribution();
+		recalculateDistribution();
 		pointConnectionResult.draw();
 
 	}
@@ -74,34 +74,44 @@ void ofApp::drawToFbo() {
 
 void ofApp::update() { }
 
-// TODO vielleicht für jedes einzelne Methode
-// TODO vielleicht calculate Methods nicht statisch
-void ofApp::calculateAll() {
-	imageFilterResult = ImageFilter::calculate(baseImage, ImageFilterSettings(gui.imageFilterType, gui.lightMode));
-	pointDistributionResult = PointDistribution::calculate(imageFilterResult, PointDistributionSettings(gui.pointDistributionType, gui.spacer, gui.particleCount, gui.power));
-	pointConnectionResult = PointConnection::calculate(pointDistributionResult, PointConnectionSettings(gui.pointConnectionType));
+ImageFilterResult ofApp::calculateImageFilterResult() {
+	return ImageFilter::calculate(baseImage, ImageFilterSettings(gui.imageFilterType, gui.lightMode));
 }
 
-void ofApp::calculateDistribution() {
-	pointDistributionResult = PointDistribution::calculate(imageFilterResult, PointDistributionSettings(gui.pointDistributionType, gui.spacer, gui.particleCount, gui.power));
-	pointConnectionResult = PointConnection::calculate(pointDistributionResult, PointConnectionSettings(gui.pointConnectionType));
+PointDistributionResult ofApp::calculatePointDistributionResult() {
+	return PointDistribution::calculate(imageFilterResult, PointDistributionSettings(gui.pointDistributionType, gui.spacer, gui.particleCount, gui.power));
 }
 
-void ofApp::calculateConnection() {
-	pointConnectionResult = PointConnection::calculate(pointDistributionResult, PointConnectionSettings(gui.pointConnectionType));
+PointConnectionResult ofApp::calculatePointConnectionResult() {
+	return PointConnection::calculate(pointDistributionResult, baseImage, PointConnectionSettings(gui.pointConnectionType, gui.colorMode));
+}
+
+void ofApp::recalculateAll() {
+	imageFilterResult = calculateImageFilterResult();
+	pointDistributionResult = calculatePointDistributionResult();
+	pointConnectionResult = calculatePointConnectionResult();
+}
+
+void ofApp::recalculateDistribution() {
+	pointDistributionResult = calculatePointDistributionResult();
+	pointConnectionResult = calculatePointConnectionResult();
+}
+
+void ofApp::recalculateConnection() {
+	pointConnectionResult = calculatePointConnectionResult();
 
 }
 
 void ofApp::prepareGui() {
 	guiPanel.setup(gui.allParameters);
 	imageFilterListener = gui.imageFilterSettingsGroup.parameterChangedE().newListener([&](ofAbstractParameter& p) {
-		calculateAll();
+		recalculateAll();
 		});
 	pointDistributionListener = gui.pointDistributionSettingsGroup.parameterChangedE().newListener([&](ofAbstractParameter& p) {
-		calculateDistribution();
+		recalculateDistribution();
 		});
 	pointConnectionListener = gui.pointConnectionSettingsGroup.parameterChangedE().newListener([&](ofAbstractParameter& p) {
-		calculateConnection();
+		recalculateConnection();
 		});
 }
 
@@ -110,7 +120,7 @@ void ofApp::keyPressed(int key) {
 	if (key == 'a') {
 		PointDistributionResult res = PointDistribution::calculate(imageFilterResult, PointDistributionSettings(gui.pointDistributionType, gui.spacer, gui.particleCount, gui.power));
 		pointDistributionResult.addPoints(res);
-		calculateConnection();
+		recalculateConnection();
 	}
 	// new beginnings...
 	else if (key == 'd') {
