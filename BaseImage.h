@@ -10,16 +10,22 @@ private:
 
 public:
 	int w, h;
-	std::string filePath;
 
 	BaseImage() = default;
-	BaseImage(std::string _filePath, int _w, int _h) : filePath(_filePath), w(_w), h(_h) {
-		image.load(filePath);
+	BaseImage(std::string _filePath, int _w, int _h) : w(_w), h(_h) {
+		image.load(_filePath);
 		image.resize(w, h);
 	};
+	BaseImage(ofTexture _texture) {
+		ofPixels pixels;
+		_texture.readToPixels(pixels);
+		image.setFromPixels(pixels);
+		w = image.getWidth();
+		h = image.getHeight();
+	};
 
-	void draw() {
-		image.draw(0, 0);
+	void draw(const ofRectangle & rect) {
+		image.draw(rect);
 	};
 
 	ofImage getImage() const {

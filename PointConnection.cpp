@@ -9,7 +9,9 @@ PointConnectionResult PointConnection::calculate(const PointDistributionResult &
 	case PointConnectionType::Delaunay:
 		// calculate cdt 
 		CDT::Triangulation<float> cdt;
-		cdt.insertVertices(pointDistributionResult.getCdtPoints());
+		std::vector<CDT::V2d<float>> verts = pointDistributionResult.getCdtPoints();
+		CDT::RemoveDuplicates(verts);
+		cdt.insertVertices(verts);
 		cdt.eraseSuperTriangle();
 
 		// cdt to ofMesh conversion
@@ -18,6 +20,7 @@ PointConnectionResult PointConnection::calculate(const PointDistributionResult &
 
 		for (int i = 0; i < cdt.vertices.size(); i++) {
 			triangleMesh.addVertex(ofVec3f(cdt.vertices[i].x, cdt.vertices[i].y, 0.0));
+			// triangleMesh.addColor
 		}
 
 		for (int i = 0; i < cdt.triangles.size(); i++) {

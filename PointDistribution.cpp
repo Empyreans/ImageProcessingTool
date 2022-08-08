@@ -6,6 +6,7 @@
 PointDistributionResult PointDistribution::calculate(const ImageFilterResult & _filterImageResult, const PointDistributionSettings & _pointDistributionSettings)
 {
 	std::vector<ofPoint> _points;
+	// std::vector<ofColor> _colors;
 
 	float power = _pointDistributionSettings.power;
 
@@ -29,6 +30,7 @@ PointDistributionResult PointDistribution::calculate(const ImageFilterResult & _
 			int y = (int)ofRandom(_filterImageResult.h);
 			if (_filterImageResult.checkPointOnThreshold(x, y, power)) {
 				_points.push_back(ofPoint(x, y));
+				//_colors.push_back(_filterImageResult.getColorAt(x, y));
 			}
 		}
 		break;
@@ -42,7 +44,6 @@ void PointDistributionResult::draw() {
 	}
 }
 
-// needed for cdt delaunay algorithm
 std::vector<CDT::V2d<float>> PointDistributionResult::getCdtPoints() const {
 	std::vector<CDT::V2d<float>> cdtPoints;
 	for (ofPoint p : points) {
@@ -52,7 +53,6 @@ std::vector<CDT::V2d<float>> PointDistributionResult::getCdtPoints() const {
 	return cdtPoints;
 }
 
-// add points to existing result set
 void PointDistributionResult::addPoints(const PointDistributionResult & result) {
 	points.insert(points.end(), result.points.begin(), result.points.end());
 }

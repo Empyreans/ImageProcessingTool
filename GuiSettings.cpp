@@ -23,8 +23,8 @@ GuiSettings::GuiSettings() {
 	// --- Point Distribution Settings ---
 	pointDistributionSettingsGroup.setName("point distribution settings");
 	pointDistributionSettingsGroup.add(pointDistributionTypeSelection.set("point distribution method", 0, 0, 1));
-	pointDistributionSettingsGroup.add(particleCount.set("particle count", 100, 100, 10000));
-	pointDistributionSettingsGroup.add(spacer.set("spacer", 5, 5, 120));
+	pointDistributionSettingsGroup.add(particleCount.set("particle count", 100, 100, 50000));
+	pointDistributionSettingsGroup.add(spacer.set("spacer", 20, 1, 120));
 	pointDistributionSettingsGroup.add(drawDistribution.set("draw distribution", false));
 	pointDistributionTypeSelection.addListener(this, &GuiSettings::pointDistributionTypeChanged);
 

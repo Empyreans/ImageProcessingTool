@@ -19,17 +19,17 @@ public:
 
 	// --- Point Distribution Settings ---
 	ofParameterGroup pointDistributionSettingsGroup;
+	ofParameter<bool> drawDistribution;
 	ofParameter<int> pointDistributionTypeSelection;
 	ofParameter<int> particleCount;
 	ofParameter<int> spacer;
-	ofParameter<bool> drawDistribution;
 	PointDistributionType pointDistributionType;
 	void pointDistributionTypeChanged(int& pointDistributionMethod);
 
 	// --- Point Connection Settings ---
 	ofParameterGroup pointConnectionSettingsGroup;
-	ofParameter<int> pointConnectionTypeSelection;
 	ofParameter<bool> drawConnection;
+	ofParameter<int> pointConnectionTypeSelection;
 	PointConnectionType pointConnectionType;
 	void pointConnectionTypeChanged(int& pointConnectionMethod);
 

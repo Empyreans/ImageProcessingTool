@@ -6,6 +6,7 @@
 #include "../PointDistribution.h"
 #include "../PointConnection.h"
 #include "../GuiSettings.h"
+#include "ofxSpout.h"
 
 class ofApp : public ofBaseApp {
 
@@ -13,6 +14,8 @@ class ofApp : public ofBaseApp {
 		void setup();
 		void update();
 		void draw();
+
+		void drawToFbo();
 
 		// gui
 		GuiSettings gui;
@@ -34,6 +37,18 @@ class ofApp : public ofBaseApp {
 		ImageFilterResult imageFilterResult;
 		PointDistributionResult pointDistributionResult;
 		PointConnectionResult pointConnectionResult;
+
+		ofFbo fbo;
+
+		ofxSpout::Receiver receiver;
+		bool isSpoutReceived = false;
+		ofTexture spoutTexture;
+
+		ofxSpout::Sender sender;
+
+		boolean manualMode;
+
+		ofRectangle imageSize;
 
 		// input
 		void keyPressed(int key);
