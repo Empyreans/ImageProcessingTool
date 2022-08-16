@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofxDelaunay.h"
-#include "CDT/CDT.h"
+#include "../addons/CDT/CDT.h"
 #include "BaseImage.h"
 
 enum class PointConnectionType { Delaunay };

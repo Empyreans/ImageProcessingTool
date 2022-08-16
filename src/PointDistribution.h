@@ -2,7 +2,7 @@
 
 #include <ofPoint.h>
 #include <vector>
-#include "CDT/CDT.h"
+#include "../addons/CDT/CDT.h"
 #include "BaseImage.h"
 
 enum class PointDistributionType { Spacer, Random };

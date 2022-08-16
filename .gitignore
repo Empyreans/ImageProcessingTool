@@ -85,6 +85,7 @@ Desktop.ini
 
 .cache
 addons/*
+!addons/CDT/*
 obj/
 icon.rc
 config.make
@@ -94,3 +95,8 @@ ImageProcessingTool.qbs
 .vscode/
 .vs/
 *.vcxproj*
+*.sln
+
+*.ipch
+*.vsidx
+*.VC.db
